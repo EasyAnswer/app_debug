@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'app-utils.dart';
-import 'constantes.dart';
+import '../app-utils.dart';
+import '../constantes.dart';
 import 'package:http/http.dart' as http;
 
 void loginUser(context) async {
@@ -16,18 +16,22 @@ Future<String?> _loginUser() async {
   if (data["status"] == "error") {
     if (data["reason"] == "USER BANNED") {
       print2logs('Utillisateur banni ${data["message"]}', "loginUser");
-      return "Utillisateur banni ${data["message"]}";
+      return "Utillisateur banni:\n${data["message"]}";
     } else if (data["reason"] == "USER NOT EXIST") {
       print2logs('Utillisateur non trouvé', "loginUser");
       return "Utillisateur non trouvé";
-    } else {
+    } else if (data["reason"] == "INCORRECT CREDENTIAL") {
       print2logs(data['reason'], "loginUser");
-      return data['reason'];
+      return "Identifiant ou mot de passe incorrect";
+    } else {
+      print2logs("Erreur inconnue", "loginUser");
+      return "Erreur inconnue";
     }
   } else {
     userID = data["userID"];
-    token = data["token"];
-    print2logs('token Saved: $token\nuserID Saved: $userID', "loginUser");
-    return "Success";
+    accessToken = data["accessToken"];
+    print2logs(
+        'accessToken Saved: $accessToken\nuserID Saved: $userID', "loginUser");
+    return "Connexion réussie";
   }
 }

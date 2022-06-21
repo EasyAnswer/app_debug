@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'constantes.dart';
+import '../constantes.dart';
 import 'package:http/http.dart' as http;
-import 'app-utils.dart';
+import '../app-utils.dart';
 
 void connectWithIP(context) async {
   var vartemp = await _connectWithIP();
@@ -12,10 +12,10 @@ Future<String?> _connectWithIP() async {
   var data = json.decode(response.body);
   if (data["status"] == "error") {
     print2logs(data.toString(), "connectWithIP");
-    return "Error";
+    return "Erreur lors de la connexion par IP";
   } else {
-    token = data["token"];
-    print2logs('token Saved: $token', "connectWithIP");
-    return "Success";
+    accessToken = data["token"];
+    print2logs('token Saved: $accessToken', "connectWithIP");
+    return "Connexion réussie";
   }
 }

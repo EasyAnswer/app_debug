@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'app-utils.dart';
-import 'constantes.dart';
+import '../app-utils.dart';
+import '../constantes.dart';
 import 'package:http/http.dart' as http;
 
 void disconnectSession(context) async {
@@ -10,7 +10,7 @@ void disconnectSession(context) async {
 Future<String?> _disconnectSession() async {
   var response =
       await http.post(Uri.parse("${apiurl}session/disconnect"), body: {
-    "token": token,
+    "token": accessToken,
   });
   var data = json.decode(response.body);
   if ((data["status"] == "error") && (data["reason"] == "INVALID TOKEN")) {
