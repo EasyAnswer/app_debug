@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'app-utils.dart';
 import 'connectWithIP.dart';
 import 'loginUser.dart';
+import 'disconnectSession.dart';
 
 void main() => runApp(const MyApp());
 
@@ -36,8 +37,10 @@ class MyStatelessWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        standardButton('Connect with IP', connectWithIP, context),
+        standardButton('Connect with IP', connectWithIP, context,
+            buttonColor: Colors.green, textColor: Colors.white),
         standardButton('Login User', loginUser, context),
+        standardButton('Disconnect session', disconnectSession, context),
       ],
     );
   }

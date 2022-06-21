@@ -8,22 +8,16 @@ void disconnectSession(context) async {
 }
 
 Future<String?> _disconnectSession() async {
-  var response = await http.post(Uri.parse("${apiurl}login/user"), body: {
+  var response =
+      await http.post(Uri.parse("${apiurl}session/disconnect"), body: {
     "token": token,
   });
   var data = json.decode(response.body);
-  if (data["status"] == "error") {
-    if (data["reason"] == "INVALID TOKEN") {
-      print2logs('Votre autorisation à expiré', "loginUser");
-      return "Votre autorisation à expiré";
-    } else {
-      print2logs(data['reason'], "loginUser");
-      return data['reason'];
-    }
+  if ((data["status"] == "error") && (data["reason"] == "INVALID TOKEN")) {
+    print2logs('Votre autorisation à expiré', "loginUser");
+    return "Votre autorisation à expiré";
   } else {
-    userID = data["userID"];
-    token = data["token"];
-    print2logs('token Saved: $token\nuserID Saved: $userID', "loginUser");
-    return "Success";
+    print2logs("Déconnexion", "loginUser");
+    return "disconnected";
   }
 }

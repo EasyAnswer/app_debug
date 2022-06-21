@@ -9,18 +9,19 @@ print2logs(message, name) {
 }
 
 Widget standardButton(
-    String text, Function onPressedFunction, functionParameters) {
+    String text, Function onPressedFunction, functionParameters,
+    {Color buttonColor = Colors.redAccent, Color textColor = Colors.white}) {
   return TextButton(
     onPressed: () {
       onPressedFunction(functionParameters);
     },
-    child: Text(text),
     style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+        foregroundColor: MaterialStateProperty.all<Color>(textColor),
+        backgroundColor: MaterialStateProperty.all<Color>(buttonColor),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.red)))),
+                side: BorderSide(color: buttonColor)))),
+    child: Text(text),
   );
 }
